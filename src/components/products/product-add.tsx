@@ -51,7 +51,7 @@ export default function AddProductPage() {
       setCategoryValue("")
       setIsRequiredRefetchAPI(true)
     }
-  },[formState.name, isSubmitting, isSuccess])
+  },[formState.name, isSubmitting, isSuccess, setIsRequiredRefetchAPI])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormState({ ...formState, [e.target.id]: e.target.value });
   const getOptions = useCallback(() => {

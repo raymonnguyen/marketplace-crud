@@ -29,6 +29,15 @@ export default function EditProductPage() {
 
   const [isSubmitting, setIsSubmitting ] = useState(false)
   const { mutate, isSuccess} = useMutation((data:any) => editProduct(data, String(id)))
+  const getProductImage = useCallback(() => {
+    if(productData) {
+        if (productData[0].imageURL) {
+            return productData[0].imageURL
+        }
+       return ["https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png"]
+    }
+  },[productData])
+
   const handleSubmit = useCallback(async (e:any) => {
     e.preventDefault();
     setIsSubmitting(true)
@@ -41,7 +50,7 @@ export default function EditProductPage() {
       price: generateRandomInteger(50,500),
     }
     mutate(formData)
-  },[categoryValue, formState.description, formState.name, isActive, mutate, productData])
+  },[categoryValue, formState.description, formState.name, getProductImage, isActive, mutate])
 
   function generateRandomInteger(min:number, max:number) {
     return Math.floor(min + Math.random()*(max - min + 1))
@@ -61,15 +70,6 @@ export default function EditProductPage() {
         })
         setCategoryValue(productData[0].category)
         setIsActive(productData[0].isActive)
-    }
-  },[productData])
-
-  const getProductImage = useCallback(() => {
-    if(productData) {
-        if (productData[0].imageURL) {
-            return productData[0].imageURL
-        }
-       return ["https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png"]
     }
   },[productData])
 

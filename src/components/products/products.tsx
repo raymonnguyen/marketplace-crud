@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductContext from '../../context/ProductContext';
@@ -18,7 +19,7 @@ interface PropType {
 export default function Products({ handleSelectedProduct, selectedIds, isActive, isDeletedCompleted,searchText,isSearchClicked,setIsSearching,isSearching }: PropType) {
     const getListQuery = useGetList()
     const {setIsRequiredRefetchAPI,isRequiredRefetchAPI} = useContext(ProductContext)
-        const { data, error, isError, isLoading, refetch } = getListQuery
+        const { data, isLoading, refetch } = getListQuery
     const [productList,setProductList] = useState<Array<Product>>(data)
     const [isRefetching,setIsRefetching] = useState(false)
     const [isSearchingWithText,setIsSearchingWithTexted] = useState(false)
