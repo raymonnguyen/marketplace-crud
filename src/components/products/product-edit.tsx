@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import { useMutation, useQuery } from 'react-query'
@@ -11,6 +11,7 @@ import { useParams } from 'react-router';
 import { editProduct } from '../../services/editProduct';
 import Product from '../../models/product';
 import { fetchingProductBasedOnId } from '../../services/fetchProduct';
+import ProductContext from '../../context/ProductContext';
 
 const fields = addProductField;
 let fieldsState = {} as any;
@@ -23,6 +24,7 @@ export default function EditProductPage() {
   let { id } = useParams();
   const [formState, setFormState] = useState(fieldsState);
   const [isActive, setIsActive] = useState(false);
+  const {setIsRequiredRefetchAPI} = useContext(ProductContext)
   const [categoryValue, setCategoryValue] = useState('')
   const { data } = useQuery(['categories'], () => fetchcCategories())
   const {data: productData} = useQuery<Product[], Error>(['product', id], () => fetchingProductBasedOnId(String(id)))
@@ -59,9 +61,10 @@ export default function EditProductPage() {
   useEffect(()=>{
     if(isSubmitting && isSuccess) {
       toast.success(`Congrats! You have edit ${formState.name} successfully`)
+      setIsRequiredRefetchAPI(true)
       setIsSubmitting(false)
     }
-  },[formState.name, isSubmitting, isSuccess])
+  },[formState.name, isSubmitting, isSuccess, setIsRequiredRefetchAPI])
   useEffect(()=> {
     if(productData) {
         setFormState({
