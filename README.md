@@ -22,3 +22,5 @@ The project will allow user to:.\
 +Delete multiple items.\
 +View details itme.\
 +View list of items in active/inactive state
+Project Sreenshot:
+https://drive.google.com/drive/u/0/folders/1Xxctlcagaiv2Ktu07YUhfOrrKJJOd9FK
